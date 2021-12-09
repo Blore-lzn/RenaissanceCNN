@@ -1,3 +1,4 @@
+import cv2
 import streamlit as st
 import os
 import json
@@ -6,7 +7,7 @@ from PIL import Image
 from torchvision import transforms
 from model import resnet50
 import matplotlib.pyplot as plt
-from cam import explanation
+from grad_cam import grad_cam_run
 
 st.set_option('deprecation.showPyplotGlobalUse', False)  # 防止报错
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -72,7 +73,7 @@ def main():
             ## 识别结果
         """)
     if uploaded_file is not None:
-        with st.spinner(text='资源加载中...'):
+        with st.spinner(text='加载中...'):
             picture = Image.open(uploaded_file)
             result = predict_resnet50(picture)
     st.success(result)
@@ -81,14 +82,15 @@ def main():
         st.write("""
                     ## 结果解释
                 """)
-        option = st.selectbox(
-            '请选择一种解释方法',
-            ("gradcam", "scorecam", "gradcam++", "xgradcam",
-             "eigencam", "eigengradcam", "layercam", "fullgrad"))
-        if option is not None:
-            with st.spinner(text='资源加载中...'):
-                picture = Image.open(uploaded_file)
-                explanation(picture, option)
+        with st.spinner(text='加载中...'):
+            picture = Image.open(uploaded_file)
+            cam_image = grad_cam_run(picture)
+            tmp_img = cv2.cvtColor(cam_image, cv2.COLOR_BGR2RGB)
+            cam_image = Image.fromarray(tmp_img)
+            plt.imshow(cam_image)
+            plt.title('Grad-CAM')
+            fig = plt.show()
+            st.pyplot(fig)
 
 
 if __name__ == '__main__':

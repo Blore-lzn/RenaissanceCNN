@@ -3,7 +3,7 @@ matplotlib
 pillow
 torchvision
 torch
-opencv-python
+opencv-python==4.5.4.58
 numpy
 ttach
 tqdm

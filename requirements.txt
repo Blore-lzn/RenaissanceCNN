@@ -1,9 +1,10 @@
 streamlit
 matplotlib
-pillow
-torchvision
-torch
+Pillow
 opencv-python-headless
 numpy
+torch==1.7.1
+torchvision==0.8.2
+typing-extensions==3.7.4.3
 ttach
 tqdm

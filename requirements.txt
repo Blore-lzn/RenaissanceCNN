@@ -3,3 +3,7 @@ matplotlib
 pillow
 torchvision
 torch
+opencv-python
+numpy
+ttach
+tqdm

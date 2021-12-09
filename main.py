@@ -6,6 +6,7 @@ from PIL import Image
 from torchvision import transforms
 from model import resnet50
 import matplotlib.pyplot as plt
+from cam import explanation
 
 st.set_option('deprecation.showPyplotGlobalUse', False)  # 防止报错
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -75,9 +76,19 @@ def main():
             picture = Image.open(uploaded_file)
             result = predict_resnet50(picture)
     st.success(result)
-    st.write("""
-            ## 结果解释
-        """)
+
+    if uploaded_file is not None:
+        st.write("""
+                    ## 结果解释
+                """)
+        option = st.selectbox(
+            '请选择一种解释方法',
+            ("gradcam", "scorecam", "gradcam++", "xgradcam",
+             "eigencam", "eigengradcam", "layercam", "fullgrad"))
+        if option is not None:
+            with st.spinner(text='资源加载中...'):
+                picture = Image.open(uploaded_file)
+                explanation(picture, option)
 
 
 if __name__ == '__main__':

@@ -8,6 +8,7 @@ from torchvision import transforms
 from model import resnet50
 import matplotlib.pyplot as plt
 from grad_cam_local import grad_cam_run
+import pandas as pd
 
 st.set_option('deprecation.showPyplotGlobalUse', False)  # 防止报错
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -70,6 +71,17 @@ def main():
     uploaded_file = st.sidebar.file_uploader(
         "上传图片", type=['jpg'])
     st.write("""
+            ## 说明
+            
+            本应用使用ResNet50模型+Kaggle数据集Best Artworks of All Time进行训练，目前支持的画家如下
+            """)
+    df = pd.read_csv('./artists.csv')
+    st.dataframe(df)
+    st.write("""
+            ## 使用方法
+            
+            在左侧上传需要识别的图片（仅支持JPG格式）
+            
             ## 识别结果
         """)
     if uploaded_file is not None:

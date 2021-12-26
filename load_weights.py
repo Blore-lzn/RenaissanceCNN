@@ -10,7 +10,7 @@ def main():
     # load pretrain weights
     # download url: https://download.pytorch.org/models/resnet34-333f7ec4.pth
     model_weight_path = "./resnet50.pth"
-    assert os.path.exists(model_weight_path), "file {} does not exist.".format(model_weight_path)
+    # assert os.path.exists(model_weight_path), "file {} does not exist.".format(model_weight_path)
 
     # option1
     model = resnet50(num_classes=50).to(device)

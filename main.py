@@ -7,7 +7,7 @@ from PIL import Image
 from torchvision import transforms
 from model import resnet50
 import matplotlib.pyplot as plt
-from grad_cam import grad_cam_run
+from grad_cam_local import grad_cam_run
 
 st.set_option('deprecation.showPyplotGlobalUse', False)  # 防止报错
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")

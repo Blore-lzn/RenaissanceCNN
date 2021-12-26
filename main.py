@@ -76,7 +76,7 @@ def main():
             本应用使用ResNet50模型+Kaggle数据集Best Artworks of All Time进行训练，目前支持的画家如下
             """)
     df = pd.read_csv('./artists.csv')
-    data = df.set_index('id')
+    data = df.set_index('id').drop('paintings', axis=1)
     st.dataframe(data)
     st.write("""
             ## 使用方法

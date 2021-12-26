@@ -68,7 +68,7 @@ def main():
     """)
     result = ""
     uploaded_file = st.sidebar.file_uploader(
-        "上传图片", type=['png', 'jpeg', 'jpg'])
+        "上传图片", type=['jpg'])
     st.write("""
             ## 识别结果
         """)
